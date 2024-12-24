@@ -43,7 +43,7 @@ const Header = () => {
                     </div>
                     <div className="right">
                         <TbSearch onClick={() => setSearchModal(true)} />
-                        <AiOutlineHeart />
+                        <AiOutlineHeart onClick={() => navigate("/wishlist")} />
                         <span
                             className="cart-icon"
                             onClick={() => setShowCart(true)}
