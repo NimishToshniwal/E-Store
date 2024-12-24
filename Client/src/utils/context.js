@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { createContext, useState } from "react";
+import { useEffect, createContext, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 export const Context = createContext();
@@ -12,8 +11,15 @@ const AppContext = ({ children }) => {
         const savedCart = localStorage.getItem('cart');
         return savedCart ? JSON.parse(savedCart) : [];
     });
+
     const [cartCount, setCartCount] = useState(0);
     const [cartSubTotal, setCartSubTotal] = useState(0);
+
+    const [wishlist, setWishlist] = useState(() => {
+        const savedWishlist = localStorage.getItem('wishlist');
+        return savedWishlist ? JSON.parse(savedWishlist) : {};
+    });
+
     const location = useLocation();
 
     useEffect(() => {
@@ -24,16 +30,21 @@ const AppContext = ({ children }) => {
         localStorage.setItem('cart', JSON.stringify(cartItems));
 
         let count = 0;
-        cartItems?.map((item) => (count += item.attributes.quantity));
+        cartItems?.forEach((item) => (count += item.attributes.quantity));
         setCartCount(count);
 
         let subTotal = 0;
-        cartItems.map(
+        cartItems.forEach(
             (item) =>
                 (subTotal += item.attributes.price * item.attributes.quantity)
         );
         setCartSubTotal(subTotal);
     }, [cartItems]);
+
+    // Update wishlist data in localStorage
+    useEffect(() => {
+        localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    }, [wishlist]);
 
     const handleAddToCart = (product, quantity) => {
         let items = [...cartItems];
@@ -65,6 +76,19 @@ const AppContext = ({ children }) => {
         setCartItems(items);
     };
 
+    // Add or remove product from wishlist
+    const handleWishlistToggle = (productId) => {
+        setWishlist((prev) => ({
+            ...prev,
+            [productId]: !prev[productId],
+        }));
+    };
+
+    // Check if a product is in the wishlist
+    const isProductInWishlist = (productId) => {
+        return !!wishlist[productId];
+    };
+
     return (
         <Context.Provider
             value={{
@@ -82,7 +106,10 @@ const AppContext = ({ children }) => {
                 setShowCart,
                 handleCartProductQuantity,
                 cartSubTotal,
-                setCartSubTotal
+                setCartSubTotal,
+                wishlist,
+                handleWishlistToggle,
+                isProductInWishlist,
             }}
         >
             {children}
