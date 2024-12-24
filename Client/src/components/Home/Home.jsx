@@ -9,10 +9,7 @@ import { Context } from "../../utils/context";
 const Home = () => {
     const { products, setProducts, categories, setCategories } =
         useContext(Context);
-    useEffect(() => {
-        getProducts();
-        getCategories();
-    }, []);
+    
 
     const getProducts = () => {
         fetchDataFromApi("/api/products?populate=*").then((res) => {
@@ -24,6 +21,11 @@ const Home = () => {
             setCategories(res);
         });
     };
+    
+    useEffect(() => {
+        getProducts();
+        getCategories();
+    }, []);
 
     return (
         <div>

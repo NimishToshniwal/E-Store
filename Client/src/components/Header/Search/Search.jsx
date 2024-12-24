@@ -19,7 +19,6 @@ const Search = ({ setSearchModal }) => {
     if (!query.length) {
         data = null;
     }
-
     return (
         <div className="search-modal">
             <div className="form-field">

@@ -8,7 +8,10 @@ const AppContext = ({ children }) => {
     const [categories, setCategories] = useState();
     const [products, setProducts] = useState();
     const [showCart, setShowCart] = useState(false);
-    const [cartItems, setCartItems] = useState([]);
+    const [cartItems, setCartItems] = useState(() => {
+        const savedCart = localStorage.getItem('cart');
+        return savedCart ? JSON.parse(savedCart) : [];
+    });
     const [cartCount, setCartCount] = useState(0);
     const [cartSubTotal, setCartSubTotal] = useState(0);
     const location = useLocation();
@@ -18,6 +21,8 @@ const AppContext = ({ children }) => {
     }, [location]);
 
     useEffect(() => {
+        localStorage.setItem('cart', JSON.stringify(cartItems));
+
         let count = 0;
         cartItems?.map((item) => (count += item.attributes.quantity));
         setCartCount(count);
