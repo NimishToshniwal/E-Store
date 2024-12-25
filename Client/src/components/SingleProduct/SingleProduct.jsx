@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { Context } from "../../utils/context";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import RelatedProducts from "./RelatedProducts/RelatedProducts";
 import {
@@ -10,14 +10,18 @@ import {
     FaLinkedinIn,
     FaPinterest,
     FaCartPlus,
+    FaHeart,
+    FaRegHeart,
 } from "react-icons/fa";
 import "./SingleProduct.scss";
 
 const SingleProduct = () => {
     const [quantity, setQuantity] = useState(1);
     const { id } = useParams();
-    const { handleAddToCart } = useContext(Context);
+    const { handleAddToCart, handleWishlistToggle, isProductInWishlist } = useContext(Context);
     const { data } = useFetch(`/api/products?populate=*&[filters][id]=${id}`);
+    const isLiked = isProductInWishlist(id)
+    const navigate = useNavigate()
 
     const decrement = () => {
         setQuantity((prevState) => {
@@ -66,13 +70,29 @@ const SingleProduct = () => {
                                 <FaCartPlus size={20} />
                                 ADD TO CART
                             </button>
+                            <button
+                                className="wishlist-button"
+                                onClick={() => handleWishlistToggle(id)}
+                            >
+                                {isLiked ? (
+                                    <>
+                                        <FaHeart size={20} style={{ margin: "10px" }} />
+                                        REMOVE 
+                                    </>
+                                ) : (
+                                    <>
+                                        <FaRegHeart size={20} style={{ margin: "10px" }} />
+                                        WISHLIST
+                                    </>
+                                )}
+                            </button>
                         </div>
 
                         <span className="divider" />
                         <div className="info-item">
                             <span className="text-bold">
                                 Category:{" "}
-                                <span>
+                                <span onClick={() => navigate("/category/" + product.categories.data[0].id)}>
                                     {
                                         product.categories.data[0].attributes
                                             .title
