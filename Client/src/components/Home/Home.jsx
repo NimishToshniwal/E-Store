@@ -1,29 +1,12 @@
-import React, { useEffect, useContext, useCallback } from "react";
+import React, { useContext } from "react";
 import "./Home.scss";
 import Banner from "./Banner/Banner";
 import Category from "./Category/Category";
 import Products from "../Products/Products";
-import { fetchDataFromApi } from "../../utils/api";
 import { Context } from "../../utils/context";
 
 const Home = () => {
-    const { products, setProducts, categories, setCategories } = useContext(Context);
-
-    const getProducts = useCallback(() => {
-        fetchDataFromApi("/api/products?populate=*").then((res) => {
-            setProducts(res);
-        });
-    }, [setProducts])
-    const getCategories = useCallback(() => {
-        fetchDataFromApi("/api/categories?populate=*").then((res) => {
-            setCategories(res);
-        });
-    }, [setCategories]);
-
-    useEffect(() => {
-        getProducts();
-        getCategories();
-    }, [getCategories, getProducts]);
+    const { products, categories } = useContext(Context);
 
     return (
         <div>
