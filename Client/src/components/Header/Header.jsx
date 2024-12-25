@@ -25,7 +25,7 @@ const Header = () => {
         window.addEventListener("scroll", handleScroll);
     }, []);
 
-    const { cartCount, showCart, setShowCart } = useContext(Context);
+    const { cartCount, showCart, setShowCart, wishlistCount } = useContext(Context);
 
     return (
         <>
@@ -43,7 +43,13 @@ const Header = () => {
                     </div>
                     <div className="right">
                         <TbSearch onClick={() => setSearchModal(true)} />
-                        <AiOutlineHeart onClick={() => navigate("/wishlist")} />
+                        <span
+                            className="cart-icon"
+                            onClick={() => navigate("/wishlist")}
+                        >
+                            <AiOutlineHeart />
+                            {!!wishlistCount && <span>{wishlistCount}</span>}
+                        </span>
                         <span
                             className="cart-icon"
                             onClick={() => setShowCart(true)}

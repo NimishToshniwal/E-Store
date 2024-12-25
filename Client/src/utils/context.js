@@ -21,6 +21,8 @@ const AppContext = ({ children }) => {
         return savedWishlist ? JSON.parse(savedWishlist) : {};
     });
 
+    const [wishlistCount, setWishlistCount] = useState(0);
+
     const location = useLocation();
 
     const getProducts = useCallback(() => {
@@ -61,6 +63,10 @@ const AppContext = ({ children }) => {
     // Update wishlist data in localStorage
     useEffect(() => {
         localStorage.setItem('wishlist', JSON.stringify(wishlist));
+
+        let count = Object.values(wishlist).filter(value => value).length;
+        setWishlistCount(count);
+
     }, [wishlist]);
 
     const handleAddToCart = (product, quantity) => {
@@ -127,6 +133,7 @@ const AppContext = ({ children }) => {
                 wishlist,
                 handleWishlistToggle,
                 isProductInWishlist,
+                wishlistCount,
             }}
         >
             {children}
