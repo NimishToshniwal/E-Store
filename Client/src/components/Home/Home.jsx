@@ -4,7 +4,7 @@ import Banner from "./Banner/Banner";
 import Category from "./Category/Category";
 import Products from "../Products/Products";
 import { Context } from "../../utils/context";
-
+import Features from "../Features/Features";
 const Home = () => {
     const { products, categories } = useContext(Context);
 
@@ -14,6 +14,7 @@ const Home = () => {
             <div className="main-content">
                 <div className="layout">
                     <Category categories={categories} />
+                    <Features/>
                     <Products
                         headingText="Popular Products"
                         products={products}
