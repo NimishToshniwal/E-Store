@@ -1,5 +1,6 @@
-import { useEffect, createContext, useState } from "react";
+import { useEffect, createContext, useState, useCallback } from "react";
 import { useLocation } from "react-router-dom";
+import { fetchDataFromApi } from "./api";
 
 export const Context = createContext();
 
@@ -23,6 +24,22 @@ const AppContext = ({ children }) => {
     const [wishlistCount, setWishlistCount] = useState(0);
 
     const location = useLocation();
+
+    const getProducts = useCallback(() => {
+        fetchDataFromApi("/api/products?populate=*").then((res) => {
+            setProducts(res);
+        });
+    }, [setProducts])
+    const getCategories = useCallback(() => {
+        fetchDataFromApi("/api/categories?populate=*").then((res) => {
+            setCategories(res);
+        });
+    }, [setCategories]);
+
+    useEffect(() => {
+        getProducts();
+        getCategories();
+    }, [getCategories, getProducts]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
