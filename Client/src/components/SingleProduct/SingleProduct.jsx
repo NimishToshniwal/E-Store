@@ -9,10 +9,10 @@ import {
     FaInstagram,
     FaLinkedinIn,
     FaPinterest,
-    FaCartPlus,
     FaHeart,
     FaRegHeart,
 } from "react-icons/fa";
+import { AiOutlineShopping } from "react-icons/ai";
 import "./SingleProduct.scss";
 
 const SingleProduct = () => {
@@ -67,8 +67,8 @@ const SingleProduct = () => {
                                     setQuantity(1);
                                 }}
                             >
-                                <FaCartPlus size={20} />
-                                ADD TO CART
+                                <AiOutlineShopping size={20} />
+                                ADD TO BAG
                             </button>
                             <button
                                 className="wishlist-button"

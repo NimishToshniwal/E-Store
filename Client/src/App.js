@@ -9,7 +9,8 @@ import SingleProduct from "./components/SingleProduct/SingleProduct";
 import Newsletter from "./components/Footer/Newsletter/Newsletter";
 import AppContext from "./utils/context";
 import Wishlist from "./components/Wishlist/Wishlist";
-
+import { ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
 
     return (
@@ -24,6 +25,7 @@ function App() {
                 </Routes>
                 <Newsletter />
                 <Footer />
+                <ToastContainer/>
             </AppContext>
         </BrowserRouter>
     );

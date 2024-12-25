@@ -1,13 +1,22 @@
-import { React, useContext } from "react";
+import { React, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Product.scss";
 import { Context } from "../../../utils/context";
 import HeartButton from "./HeartButton";
-
+import { AiOutlineShopping } from "react-icons/ai";
+import { toast } from 'react-toastify';
 const Product = ({ id, data }) => {
-    const { handleWishlistToggle, isProductInWishlist } = useContext(Context)
+    const { handleWishlistToggle, isProductInWishlist, handleAddToCart} = useContext(Context)
     const isLiked = isProductInWishlist(id)
     const navigate = useNavigate();
+    const productData = {id:id,attributes:data}
+    const [clicked, setClicked] = useState(false);
+    const handleCartClick = () => {
+        setClicked(true);
+        setTimeout(() => setClicked(false), 300); // Reset animation after 300ms
+        handleAddToCart({ id, attributes: data }, 1);
+        toast.success('Item added to bag.')
+    };
     return (
         <div
             className="product-card"
@@ -24,6 +33,9 @@ const Product = ({ id, data }) => {
                 <HeartButton
                     isLiked={isLiked}
                     onClick={() => handleWishlistToggle(id)}
+                />
+                <AiOutlineShopping className={`add-to-cart-icon ${clicked ? "clicked" : ""}`}
+                    onClick={handleCartClick}
                 />
             </div>
             <div className="prod-details">

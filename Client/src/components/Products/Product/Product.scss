@@ -61,6 +61,35 @@
         }
       }
     }
+    .add-to-cart-icon {
+      position: absolute;
+      bottom: 10px;
+      left: 10px; // Adjust alignment
+      width: 35px; // Increased width
+      height: 35px; // Increased height
+      border-radius: 50%; // Circle shape
+      background: rgba(255, 255, 255, 0.8); // Light background for visibility
+      color: #ff6b6b; // Purple color for the cart icon
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // Subtle shadow for elevation
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: scale(1.1); // Slight zoom on hover
+        background: #ffffff; // Brighten background on hover
+        color: #ff1a1a; // Slightly darker purple for contrast
+      }
+
+      svg {
+        font-size: 20px; // Adjust size of the cart icon
+      }
+
+      &.clicked {
+        animation: fillAnimation 0.3s ease-in forwards;
+      }
+    }
   }
   .prod-details {
     .name {
@@ -99,5 +128,20 @@
   }
   100% {
     transform: scale(1);
+  }
+}
+
+@keyframes fillAnimation {
+  0% {
+      fill: transparent;
+      color: #ff6b6b;
+  }
+  50% {
+      fill: #ff6b6b; /* Fill with color when clicked */
+      color: white;
+  }
+  100% {
+      fill: transparent; /* Revert to unfilled after 300ms */
+      color: #ff6b6b;
   }
 }
