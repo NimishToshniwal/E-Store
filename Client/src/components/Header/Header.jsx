@@ -1,8 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { TbSearch } from "react-icons/tb";
-import { CgShoppingCart } from "react-icons/cg";
-import { AiOutlineHeart } from "react-icons/ai";
+import { AiOutlineHeart, AiOutlineShopping } from "react-icons/ai";
 import "./Header.scss";
 import Search from "./Search/Search";
 import { Context } from "../../utils/context";
@@ -54,7 +53,7 @@ const Header = () => {
                             className="cart-icon"
                             onClick={() => setShowCart(true)}
                         >
-                            <CgShoppingCart />
+                            <AiOutlineShopping />
                             {!!cartCount && <span>{cartCount}</span>}
                         </span>
                     </div>

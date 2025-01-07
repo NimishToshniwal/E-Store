@@ -9,7 +9,6 @@ const Product = ({ id, data }) => {
     const { handleWishlistToggle, isProductInWishlist, handleAddToCart} = useContext(Context)
     const isLiked = isProductInWishlist(id)
     const navigate = useNavigate();
-    const productData = {id:id,attributes:data}
     const [clicked, setClicked] = useState(false);
     const handleCartClick = () => {
         setClicked(true);

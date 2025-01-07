@@ -10,11 +10,11 @@ const Home = () => {
 
     return (
         <div>
-            <Banner />
+            {/* <Banner /> */}
             <div className="main-content">
                 <div className="layout">
+                    {/* <Features/> */}
                     <Category categories={categories} />
-                    <Features/>
                     <Products
                         headingText="Popular Products"
                         products={products}
